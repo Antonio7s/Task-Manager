@@ -1,0 +1,75 @@
+#ifndef TASK_HPP
+#define TASK_HPP
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <ctime>
+
+class Task {
+private:
+    std::string title;
+    std::string description;
+    std::tm dueDate;
+    bool completed;
+
+public:
+    Task(std::string t, std::string d, int day, int month);
+    void markCompleted();
+    std::string getTitle() const;
+    std::string getDescription() const;
+    std::string getDueDate() const;
+    bool isCompleted() const;
+    void display() const;
+    bool isOverdue() const;
+    bool isDueTomorrow() const;
+};
+#endif 
+
+/* TaskManager.cpp */
+#include "TaskManager.hpp"
+#include "FileHandler.hpp"
+#include <cstdlib>
+TaskManager& TaskManager::getInstance() {
+    static TaskManager instance;
+    return instance;
+}
+void TaskManager::addTask(const Task& task) {
+    tasks.push_back(task);
+}
+void TaskManager::listTasks() const {
+    for (const auto& task : tasks) {
+        if (task.isDueTomorrow()) {
+            std::cout << "\033[1;31m"; // Vermelho
+        }
+        task.display();
+        if (task.isOverdue()) {
+            std::cout << "[ALERTA] Tarefa atrasada!" << std::endl;
+            std::system("echo -e '\a'"); // Notificação sonora
+        }
+        std::cout << "\033[0m"; 
+    }
+}
+void TaskManager::saveTasksToFile(const std::string& filename) const {
+    FileHandler::saveToFile(filename, tasks);
+}
+void TaskManager::loadTasksFromFile(const std::string& filename) {
+    tasks = FileHandler::loadFromFile(filename);
+}
+
+
+#include "Task.hpp"
+#include <iomanip>
+#include <sstream>
+#include <ctime>
+Task::Task(std::string t, std::string d, int day, int month) : title(t), description(d), completed(false) {
+    std::time_t t_now = std::time(nullptr);
+    std::tm* now = std::localtime(&t_now);
+    dueDate = *now;
+    dueDate.tm_mday = day;
+    dueDate.tm_mon = month - 1;
+}
+bool Task::isDueTomorrow() const {
+    std::time_t t_now = std::time(nullptr);
+    std::tm* now = std::localtime(&t_now);
+    return (dueDate.tm_year == now->tm_year && dueDate.tm_yday - now->tm_yday == 1);
+}
