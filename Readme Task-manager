@@ -1,0 +1,39 @@
+# Gerenciador de Tarefas - Sistema de Gerenciamento de Tarefas
+
+Este projeto é um sistema de gerenciamento de tarefas desenvolvido em C++ que demonstra o uso de princípios avançados de programação orientada a objetos e boas práticas de design de software. Com uma arquitetura modular e escalável, o Task Manager permite gerenciar tarefas com atributos como título, descrição e dados de vencimento, oferecendo uma experiência intuitiva e eficiente.
+
+## Funcionalidades Principais
+
+- **Criação de Tarefas**: Adicione tarefas especificando título, descrição e data de vencimento (dia e mês).
+- **Listagem Inteligente**: Exiba todas as tarefas pendentes com destaque visual para tarefas críticas:
+  - **Destaque em Vermelho**: Tarefas prestes a vencer (faltando 1 dia) são realçadas em vermelho.
+  - **Alertas de Atraso**: Tarefas vencidas disparam notificações sonoras para alertar o usuário.
+- **Persistência de Dados**: Salve e carregue as tarefas de/para arquivos, garantindo que os dados sejam mantidos entre as sessões de uso.
+
+## Arquitetura e Design
+
+- **Classes Bem Definidas**:
+  - **Tarefa**: Representa uma tarefa com propriedades essenciais (título, descrição, dados de vencimento, status de conclusão) e métodos para verificação de prazos.
+  - **TaskManager**: Gerencia a coleção de tarefas, implementando o padrão Singleton para garantir uma única instância de gerenciamento.
+  - **FileHandler**: Encapsula a lógica de leitura e escrita de dados em arquivos, promovendo a separação de responsabilidades.
+- **Boas Práticas**:
+  - **Modularidade e Coesão**: Componentes com responsabilidades bem definidas, facilitando manutenção e expansões futuras.
+  - **ANSI Escape Codes**: Utilizados para destacar visualmente tarefas que exigem atenção imediata.
+  - **Notificações Sonoras**: Alertas sonoros para reforçar a atenção do usuário para tarefas críticas.
+
+## Possíveis Melhorias e Expansões Futuras
+
+- Interface Gráfica (GUI)
+- Testes Automatizados (unitários e de integração)
+- Suporte a Multithreading
+- Aprimoramento na Persistência (uso de banco de dados ou bibliotecas de serialização)
+- Internacionalização (i18n)
+- Personalização de Alertas
+
+## Considerações Finais
+
+O Task Manager une simplicidade e sofisticação, demonstrando técnicas avançadas de desenvolvimento em C++ e oferecendo uma base sólida para futuras melhorias. Seja para uso pessoal ou como base para sistemas mais complexos. 
+
+Sinta-se à vontade para explorar, contribuir e sugerir melhorias!
+
+> **Nota**: Desenvolvido com foco em boas práticas e escalabilidade. Comentários e contribuições são sempre bem-vindos!
